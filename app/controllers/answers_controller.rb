@@ -1,6 +1,7 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :find_question, only: :create
+  before_action :find_answer, only: :destroy
   before_action :is_current_user_answer_owner, only: :destroy
   
   def new
@@ -20,13 +21,8 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    @answer = Answer.find(params[:id])
     @answer.destroy 
-    if @answer.destroyed?
-      redirect_to @answer.question, notice: 'Answer is deleted.'
-    else
-      redirect_to @answer.question
-    end
+    redirect_to @answer.question, notice: 'Answer is deleted.'
   end
  
   private
@@ -36,11 +32,15 @@ class AnswersController < ApplicationController
   end
 
   def is_current_user_answer_owner
-    @answer = Answer.find(params[:id])
     unless @answer.user_id == current_user.id
       redirect_to @answer.question, alert: 'Not allowed.'
     end
   end
+
+  def find_answer
+    @answer = Answer.find(params[:id])
+  end 
+
 
   def answer_params
     params.require(:answer).permit(:body, :title)

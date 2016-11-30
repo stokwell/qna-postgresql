@@ -120,6 +120,52 @@ end
         end
       end
 end
+
+  describe 'PATCH #update' do
+       
+    sign_in_user
+
+    context 'sucessful edit' do
+      let(:question) { create(:question, user: @user) }
+
+       it 'update question with valid attributes' do
+         patch :update, id: question, question: attributes_for(:question), format: :js
+         expect(assigns(:question)).to eq question 
+       end
+
+       it 'exactly update question' do
+         patch :update, id: question, question: {title: 'new title', body: 'new bodynew body'}, format: :js
+         question.reload
+         expect(question.title).to eq 'new title'
+         expect(question.body).to eq 'new bodynew body' 
+         expect(question.user.id).to eq @user.id
+       end
+ 
+       it 'redirect to updated question' do 
+         patch :update, id: question, question: attributes_for(:question), format: :js
+         expect(response).to render_template :update
+       end
+     end
+
+     context 'invalid attributes' do
+       let(:question) { create(:question, user: @user) }
+
+       it 'try update question' do
+         patch :update, id: question, question: attributes_for(:invalid_question), format: :js
+         question.reload
+         expect(question.title).to eq question[:title]
+         expect(question.body).to eq question[:body] 
+       end
+ 
+       it 'render temlate edit with invalid attributes' do
+       
+         patch :update, id: question, question: attributes_for(:invalid_question), format: :js
+        expect(response).to render_template :update
+       end
+     end 
+
+  end
+
    
   describe 'DELETE #destroy' do
 

@@ -4,11 +4,13 @@ class QuestionsController < ApplicationController
   before_action :is_current_user_question_owner, only: [:destroy]
   
   def index
-    @questions = Question.all
+    @questions = Question.all.order("created_at desc")
+    @question = Question.new
   end
 
   def show
     @answer = Answer.new
+    @answers = Answer.all.order("created_at desc")
   end
 
   def new
@@ -16,6 +18,7 @@ class QuestionsController < ApplicationController
   end
 
   def edit
+    @question.update(question_params)
   end
   
   def create
@@ -31,11 +34,7 @@ class QuestionsController < ApplicationController
 
 
   def update 
-    if @question.update(question_params)
-      redirect_to @question
-    else
-      render :edit
-    end   
+     @question.update(question_params)
   end
 
   def destroy

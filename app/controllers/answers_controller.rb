@@ -1,6 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_question, only: :create
+  before_action :find_question, only: [:create, :update, :best]
   before_action :find_answer, only: :destroy
   before_action :is_current_user_answer_owner, only: :destroy
   
@@ -14,15 +14,33 @@ class AnswersController < ApplicationController
     @answer.save
   end
 
-  def destroy
-    @answer.destroy 
-    redirect_to @answer.question, notice: 'Answer is deleted.'
+  def update
+    @answer = Answer.find(params[:id])
+    @answer.update(answer_params)
+    @question = @answer.question
   end
+
+  def destroy
+    @answer.destroy
+    flash[:notice] = 'Answer is deleted' if @answer.destroy
+  end
+
+   
+  def best
+    @answer = Answer.find(params[:id])
+    @question = @answer.question
+    @answer.best if current_user.id == @answer.question.user_id
+  end
+   
  
   private
 
+  def find_answer
+    @answer = Answer.find(params[:id])
+  end 
+
   def find_question
-    @question = Question.find(params[:question_id])
+    @question = Question.find_by(id: params[:question_id])
   end
 
   def is_current_user_answer_owner
@@ -30,11 +48,6 @@ class AnswersController < ApplicationController
       redirect_to @answer.question, alert: 'Not allowed.'
     end
   end
-
-  def find_answer
-    @answer = Answer.find(params[:id])
-  end 
-
 
   def answer_params
     params.require(:answer).permit(:body, :title)

@@ -3,7 +3,9 @@
    $('.answer-error').html('<%= j message %>')
    <% end %>
 <% else %>
-    $('.new_answer_form').hide()
-    $('.answers').prepend('<%= j render @answer %>');
-    $('#clear').val(''); 
+   alert('updated');
+   $('#answer-<%= @answer.id %>').replaceWith("<%= j render @answer %>");
 <% end %>
+
+
+  

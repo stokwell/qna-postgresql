@@ -8,7 +8,7 @@ class Answer < ActiveRecord::Base
   def best
     ActiveRecord::Base.transaction do
       self.question.answers.update_all(best_answer: false)
-      self.update(best_answer: true)
+      self.update!(best_answer: true)
     end
   end
 

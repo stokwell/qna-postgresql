@@ -10,7 +10,7 @@ class QuestionsController < ApplicationController
 
   def show
     @answer = Answer.new
-    @answers = Answer.all.order("created_at desc")
+    @answers = Answer.order("created_at desc")
   end
 
   def new

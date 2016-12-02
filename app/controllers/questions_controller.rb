@@ -11,6 +11,7 @@ class QuestionsController < ApplicationController
   def show
     @answer = Answer.new
     @answers = Answer.order("created_at desc")
+    @answer.attachments.build
   end
 
   def new

@@ -2,6 +2,9 @@ class Answer < ActiveRecord::Base
   validates :body, presence: true
   belongs_to :question
   belongs_to :user
+  has_many :attachments, as: :attachable
+
+  accepts_nested_attributes_for :attachments
 
   default_scope { order('best_answer DESC') }
 

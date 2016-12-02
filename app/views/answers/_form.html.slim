@@ -2,4 +2,9 @@
  = form_for [@question, @answer], remote: true do |f|
       div= f.label :body, "Body"
       div= f.text_area :body, id: 'clear'
-      div= f.submit 'Add an answer', class: "answer_submit"
+      
+      div=f.fields_for :attachments do |a|
+           div= a.label :file
+           div= a.file_field :file
+
+      div= f.submit 'Add an answer', class: "answer_submit"    

@@ -20,8 +20,6 @@ feature "Best answer" do
     within ".answers"  do
       expect(page).to have_content "This answer is best", count: 1
       expect(page.first(:css, 'div')).to have_content "This answer is best"
-      
-
     end
     
   end

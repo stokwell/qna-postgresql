@@ -1,9 +1,15 @@
 .question
   h1 = @question.title
   p  = @question.body
+  p Files:
+  ul 
+    - @question.attachments.each do |a|
+      li=a.file.file.filename 
+
   .panel
     - if user_signed_in? && @question.user_id == current_user.id
       = link_to 'Delete', question_path(@question), method: :delete
       = link_to 'Edit', ' ', class: "edit-question-link"
+   
     
   = render 'questions/form'

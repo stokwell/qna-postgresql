@@ -86,6 +86,11 @@ end
       it 'assigns new question model @question' do
         expect(assigns(:question)).to be_a_new(Question)
       end
+
+      it 'builds new attachment for question' do 
+        expect(assigns(:question).attachments.first).to be_a_new(Attachment)
+      end
+      
     end
 
     describe 'POST #create' do

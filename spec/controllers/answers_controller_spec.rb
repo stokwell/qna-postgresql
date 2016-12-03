@@ -60,7 +60,7 @@ RSpec.describe AnswersController, type: :controller do
 
     describe 'POST #create' do
       context 'valid answer' do
-        let(:answer_params) { { answer: attributes_for(:answer), question_id: question } }
+        let(:answer_params) { { answer: attributes_for(:answer), question_id: question, format: :js  } }
 
         it 'creates answer in database' do
           expect do
@@ -73,14 +73,14 @@ RSpec.describe AnswersController, type: :controller do
           expect(Answer.last.user_id).to eq(@user.id)
         end
 
-        it 'redirects to question page' do
+        it 'renders create template' do
           post :create, answer_params
-          expect(response).to redirect_to(question)
+          expect(response).to render_template :create
         end
       end
 
       context 'invalid answer' do
-        let(:answer_params) { { answer: attributes_for(:invalid_answer), question_id: question } }
+        let(:answer_params) { { answer: attributes_for(:invalid_answer), question_id: question, format: :js  } }
 
         it 'does not create answer in database' do
           expect do
@@ -88,9 +88,9 @@ RSpec.describe AnswersController, type: :controller do
           end.not_to change(Answer, :count)
         end
 
-        it 'renders new view' do
+        it 'renders create template' do
           post :create, answer_params
-          expect(response).to render_template(:new)
+          expect(response).to render_template :create
         end
       end
     end

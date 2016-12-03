@@ -8,18 +8,20 @@ feature 'Give an answer', %q{
   
   given(:user) { create(:user) } 
   given(:question) { create(:question) }
-  given(:answer) { create(:answer) }
+  given(:answer) { attributes_for(:answer) }
 
-  scenario 'Registered user tries to give an answer'  do
+  scenario 'Registered user tries to give an answer', js: true  do
     sign_in(user) 
 
     visit question_path(question)
-    fill_in 'Body', with: 'MyText'
+    fill_in 'Body', with: answer[:body]
     click_on 'Add an answer'
     
-    expect(page).to have_content 'Your answer was successfully created.' 
-   
-  end
+    expect(current_path).to eq question_path(id: question.id)
+    within ".answers" do
+      expect(page).to have_content(answer[:body])
+    end
+  end 
 
   scenario 'Non-registered user tries to give an answer' do 
     visit question_path(question)

@@ -1,10 +1,9 @@
 .answer 
  = form_for [@question, @answer], remote: true do |f|
-      div= f.label :body, "Body"
-      div= f.text_area :body, id: 'clear'
-      
-      div=f.fields_for :attachments do |a|
-           div= a.label :file
-           div= a.file_field :file
+   div= f.label :body, "Body"
+   div= f.text_area :body, id: 'clear'
+   p= f.fields_for :attachments do |attach|
+     = render partial: 'attachments/a_fields', locals: {f: attach}
+   p= link_to_add_association 'Add file', f, :attachments, partial: 'attachments/a_fields'
 
-      div= f.submit 'Add an answer', class: "answer_submit"    
+   div= f.submit 'Add an answer', class: "answer_submit"    

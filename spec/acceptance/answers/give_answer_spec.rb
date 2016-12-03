@@ -14,12 +14,12 @@ feature 'Give an answer', %q{
     sign_in(user) 
 
     visit question_path(question)
-    fill_in 'Body', with: answer[:body]
+    find("#clear").set "answer text"
     click_on 'Add an answer'
     
     expect(current_path).to eq question_path(id: question.id)
     within ".answers" do
-      expect(page).to have_content(answer[:body])
+      expect(page).to have_content("answer text")
     end
   end 
 

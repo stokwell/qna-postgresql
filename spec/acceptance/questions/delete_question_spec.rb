@@ -27,6 +27,8 @@ feature 'User deletes his question', '
     sign_in(user)
     visit question_path(id: another_question.id)
 
-    expect(page).not_to have_content('Delete')
+    within ".question" do
+      expect(page).not_to have_content('Delete')
+    end
   end
 end

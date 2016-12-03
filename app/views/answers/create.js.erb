@@ -1,2 +1,9 @@
-$('#answer_body').val(''); 
-$('.answers').prepend('<%= j render @answer %>');
+<% if @answer.errors.present? %>
+   <% @answer.errors.full_messages.each do |message| %>
+   $('.answer-error').html('<%= j message %>')
+   <% end %>
+<% else %>
+    $('.new_answer_form').hide()
+    $('.answers').prepend('<%= j render @answer %>');
+    $('#clear').val(''); 
+<% end %>

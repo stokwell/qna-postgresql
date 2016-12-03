@@ -1,0 +1,18 @@
+.question
+  h1 = @question.title
+  p  = @question.body
+  p Files:
+  ul 
+    - @question.attachments.each do |a|
+      li id="attachment-id-#{a.id}"
+        = link_to a.file.file.filename, a.file.url
+        - if user_signed_in? && current_user.id == @question.user_id
+            div=link_to 'Delete file', attachment_path(a), method: :delete, data: {confirm: "Delete file?"}, remote: true 
+
+  .panel
+    - if user_signed_in? && @question.user_id == current_user.id
+      = link_to 'Delete', question_path(@question), method: :delete
+      = link_to 'Edit', ' ', class: "edit-question-link"
+   
+    
+  = render 'questions/form'

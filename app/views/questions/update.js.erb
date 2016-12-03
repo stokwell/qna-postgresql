@@ -1,0 +1,9 @@
+<% if @question.errors.present? %>
+   <% @question.errors.full_messages.each do |message| %>
+   $('.question-error').html('<%= j message %>')
+   <% end %>
+<% else %>
+   alert('updated');
+   $('.question').replaceWith("<%= j render @question %>");
+<% end %>
+

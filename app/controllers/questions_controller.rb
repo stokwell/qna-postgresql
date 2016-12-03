@@ -4,25 +4,30 @@ class QuestionsController < ApplicationController
   before_action :is_current_user_question_owner, only: [:destroy]
   
   def index
-    @questions = Question.all
+    @questions = Question.all.order("created_at desc")
+    @question = Question.new
   end
 
   def show
     @answer = Answer.new
+    @answers = Answer.order("created_at desc")
+    @answer.attachments.build
   end
 
   def new
     @question = Question.new
+    @question.attachments.build
   end
 
   def edit
+    @question.update(question_params)
   end
   
   def create
     @question = Question.new(question_params)
     @question.user = current_user
     if @question.save
-      redirect_to  questions_path
+      redirect_to  question_path(@question)
       flash[:notice] = 'Your question successfully created.' 
     else
       render :new
@@ -31,11 +36,7 @@ class QuestionsController < ApplicationController
 
 
   def update 
-    if @question.update(question_params)
-      redirect_to @question
-    else
-      render :edit
-    end   
+     @question.update(question_params)
   end
 
   def destroy
@@ -56,7 +57,7 @@ class QuestionsController < ApplicationController
   end
 
   def question_params
-    params.require(:question).permit(:title, :body)
+    params.require(:question).permit(:title, :body, attachments_attributes: [:file, :id, :_delete])
   end
 
 

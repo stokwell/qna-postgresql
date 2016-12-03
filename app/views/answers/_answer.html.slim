@@ -1,3 +1,29 @@
-p= answer.body
-- if user_signed_in? && answer.user_id == current_user.id
-  = button_to 'Delete answer', question_answer_path(answer.question, answer), method: :delete
+.answer id = "answer-#{answer.id}" class=('best-answer' if answer.best_answer)
+  p= answer.body
+  - if answer.best_answer
+    h4 This answer is best
+  
+  p Files:
+  ul 
+    - answer.attachments.each do |a|
+      li id="attachment-id-#{a.id}"
+        = link_to a.file.file.filename, a.file.url
+        - if user_signed_in? && current_user.id == answer.user_id
+            div=link_to 'Delete file', attachment_path(a), method: :delete, data: {confirm: "Delete file?"}, remote: true 
+
+  .panel
+    - if user_signed_in? && answer.user_id == current_user.id
+       = link_to 'Delete', answer, method: :delete, data: { confirm: 'Delete answer?' }, remote: true 
+       = link_to 'Edit', ' ', class: 'edit-answer-link', data: { answer_id: answer.id }
+
+    -if user_signed_in? && @question.user_id == current_user.id && !answer.best_answer
+       = link_to "Best Answer", best_answer_path(answer), method: :patch, remote: true
+  
+  p
+   = form_for answer, method: "patch", remote: true, html: { id: "edit-answer-#{answer.id}"} do |f|
+     div= f.label :body, "Edit your answer"
+     div= f.text_area :body
+     div= f.submit 'Save'
+
+  
+

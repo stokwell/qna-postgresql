@@ -1,0 +1,10 @@
+= form_for @question, remote: true do |f|
+  div=f.label :title
+  div=f.text_field :title
+  div=f.label :body
+  div=f.text_area :body
+  p Add Files
+  div=f.fields_for :attachments do |a|
+       =a.label :file
+       =a.file_field :file
+  div=f.submit 'Save'

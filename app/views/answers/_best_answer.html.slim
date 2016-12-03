@@ -1,0 +1,9 @@
+.answer id = "answer-#{answer.id}" class=('best-answer' if answer.best_answer)
+  p= answer.body
+  - if answer.best_answer
+    h4 This answer is best
+  
+  .panel
+    - if user_signed_in? && answer.user_id == current_user.id
+      p = link_to 'Delete', answer, method: :delete, data: { confirm: 'Delete answer?' }, remote: true 
+      p = link_to 'Edit', ' ', class: 'edit-answer-link', data: { answer_id: answer.id }

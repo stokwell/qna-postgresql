@@ -12,7 +12,7 @@ feature 'User deletes his question', '
   scenario 'Authenticated user can delete his question' do
     sign_in(user)
     visit question_path(id: user_question.id)
-    click_on 'Delete question'
+    click_on 'Delete'
 
     expect(current_path).to eq questions_path
     expect(page).not_to have_content(user_question.title)
@@ -20,13 +20,15 @@ feature 'User deletes his question', '
 
   scenario 'Unautheticated user cannot delete question' do
     visit question_path(id: another_question.id)
-    expect(page).not_to have_button('Delete question')
+    expect(page).not_to have_button('Delete')
  end
 
   scenario "Authenticated user can't delete someone else's question" do
     sign_in(user)
     visit question_path(id: another_question.id)
 
-    expect(page).not_to have_content('Delete question')
+    within ".question" do
+      expect(page).not_to have_content('Delete')
+    end
   end
 end

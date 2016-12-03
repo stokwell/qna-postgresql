@@ -1,10 +1,10 @@
-h1 = @question.title
-p  = @question.body
+=render @question
 
-- if user_signed_in? && @question.user_id == current_user.id
-  = button_to 'Delete question', question_path(@question), method: :delete
+h3 =link_to '+ Answer', ' ', class: "new_answer_link", remote: true  
+.new_answer_form
+  .answer-error
+  = render 'answers/form'
 
 .answers
   = render @question.answers
 
-= render 'answers/form'

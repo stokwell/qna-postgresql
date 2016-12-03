@@ -6,14 +6,13 @@ feature 'User can delete answer'  do
   given(:own_answer) { create(:answer, user: user) }
   given(:other_user_answer) { create(:answer) }
 
-  scenario 'authorized user deletes his own answer' do
+  scenario 'authorized user deletes his own answer', js: true do
     sign_in(user)
     visit question_path(own_answer.question)
-    click_on 'Delete answer'
+    click_on 'Delete'
 
     expect(page).to have_current_path(question_path(own_answer.question))
     expect(page).not_to have_content(own_answer.body)
-    expect(page).to have_content('Answer is deleted.')
   end
 
   scenario 'unauthorized user cannot delete answer' do
@@ -25,6 +24,6 @@ feature 'User can delete answer'  do
     sign_in(user)
 
     visit question_path(other_user_answer.question)
-    expect(page).not_to have_button('Delete answer')
+    expect(page).not_to have_button('Delete')
   end
 end

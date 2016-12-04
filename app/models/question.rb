@@ -5,4 +5,6 @@ class Question < ActiveRecord::Base
   belongs_to :user
 
   accepts_nested_attributes_for :attachments, :reject_if => :all_blank, :allow_destroy => true
+  
+  has_many :votes, dependent: :destroy
 end

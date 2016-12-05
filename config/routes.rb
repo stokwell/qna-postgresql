@@ -1,11 +1,25 @@
 Rails.application.routes.draw do
 
   devise_for :users
+
+  concern :votable do 
+    resources :votes, only: [:up, :down, :cancel] do
+      post :up, on: :collection
+      post :down, on: :collection
+      post :cancel, on: :collection
+    end
+  end
   
-  resources :questions do
+  resources :questions, concerns: :votable do
+
     resources :answers, shallow: true do 
       patch :best, on: :member
-    end   
+      resources :votes, only: [:up, :down, :cancel] do
+        post :up, on: :collection
+        post :down, on: :collection
+        post :cancel, on: :collection
+    end  
+   end
   end
 
   resources :attachments, only: :destroy

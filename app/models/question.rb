@@ -1,4 +1,6 @@
 class Question < ActiveRecord::Base
+  include Votable
+
   validates :body, :title, presence: true
   has_many :answers, dependent: :destroy
   has_many :attachments, as: :attachable, dependent: :destroy
@@ -6,5 +8,5 @@ class Question < ActiveRecord::Base
 
   accepts_nested_attributes_for :attachments, :reject_if => :all_blank, :allow_destroy => true
   
-  has_many :votes, dependent: :destroy
+  
 end

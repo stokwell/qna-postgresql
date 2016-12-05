@@ -1,4 +1,5 @@
 .answer id = "answer-#{answer.id}" class=('best-answer' if answer.best_answer)
+  = render partial: 'votes/vote', locals: {votable: answer, type: "answer"}
   p= answer.body
   - if answer.best_answer
     h4 This answer is best

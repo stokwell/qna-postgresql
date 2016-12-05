@@ -98,6 +98,7 @@ end
     end
 
     describe 'POST #create' do
+      let(:question) { create(:question) }
       context 'valid question' do
         it 'creates new question in database' do
           expect do

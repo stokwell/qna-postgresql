@@ -10,4 +10,5 @@ module Votable
       votes.sum (:value)
     end
 
+
 end

@@ -31,7 +31,7 @@ class AnswersController < ApplicationController
     @question = @answer.question
     @answer.best if current_user.id == @answer.question.user_id
   end
-   
+
  
   private
 

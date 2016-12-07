@@ -1,4 +1,4 @@
-.question
+div id="question-id-#{question.id}" class="question"
   h1 = @question.title
   p  = @question.body
   p Files:
@@ -15,6 +15,6 @@
       = link_to 'Edit', ' ', class: "edit-question-link"
 
   .panel-voting
-    = render partial: 'votes/vote', locals: {votable: @question, type: "question"} 
+    p= render partial: 'votes/vote', locals: {votable: @question, type: "question"} 
     
   = render 'questions/form'

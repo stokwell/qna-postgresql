@@ -1,11 +1,11 @@
 class VotesController < ApplicationController
-before_action :authenticate_user!
-before_action :load_votable
-before_action :author_votable
+  before_action :authenticate_user!
+  before_action :load_votable
+  before_action :author_votable
 
-respond_to :json
+  respond_to :json
 
- def up
+  def up
     if vote_empty
       vote_it 1 
     else
@@ -32,15 +32,18 @@ respond_to :json
     end
   end
 
-
-private
+ private
 
   def load_votable  
-    @votable =  params[:question_id] ? Question.find(params[:question_id]) : Answer.find(params[:answer_id])
+    params.each do |name, value|
+      if name =~ /(.+)_id$/
+        @votable = $1.classify.constantize.find(value)
+      end
+    end
   end
 
   def vote_it(value)
-    @vote = Vote.new(value: value, user_id: current_user.id, votable: @votable)
+    @vote = @votable.votes.new(user: current_user, value: value)
     if @vote.save
       render json: { count_votes: @vote.votable.count_votes, votable_type: @vote.votable_type, votable_id: @vote.votable_id }
     end   

@@ -3,8 +3,10 @@ class QuestionsController < ApplicationController
   before_action :find_question, only: [:show, :edit, :update, :destroy]
   before_action :is_current_user_question_owner, only: [:destroy]
   
+  include Voted
+
   def index
-    @questions = Question.all.order("created_at desc")
+    @questions = Question.all.order("created_at asc")
     @question = Question.new
   end
 

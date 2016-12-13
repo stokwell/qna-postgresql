@@ -3,8 +3,8 @@ h3= link_to '?Ask' , new_question_path, class: 'ask_link'
 /.question
   = render 'questions/form'
 
-h3 class="centered" People asked:
-= @questions.each do |q|
+h3 class="centered" Lektürefragen:
+-@questions.each do |q|
   = link_to(q)
     .question
       h3=q.title

@@ -1,20 +1,22 @@
 div id="question-id-#{question.id}" class="question"
   h1 = @question.title
   p  = @question.body
-  p Files:
-  ul 
-    - @question.attachments.each do |a|
-      li id="attachment-id-#{a.id}"
-        = link_to a.file.file.filename, a.file.url
-        - if user_signed_in? && current_user.id == @question.user_id
-            div=link_to 'Delete file', attachment_path(a), method: :delete, data: {confirm: "Delete file?"}, remote: true 
+  -if @question.attachments.any?
+   p Files:
+   ul 
+     - @question.attachments.each do |a|
+       li id="attachment-id-#{a.id}"
+         = link_to a.file.file.filename, a.file.url
+         - if user_signed_in? && current_user.id == @question.user_id
+             div=link_to 'Delete file', attachment_path(a), method: :delete, data: {confirm: "Delete file?"}, remote: true 
 
   .panel
     - if user_signed_in? && @question.user_id == current_user.id
       = link_to 'Delete', question_path(@question), method: :delete
       = link_to 'Edit', ' ', class: "edit-question-link"
 
-  .panel-voting
-    p= render partial: 'votes/vote', locals: {votable: @question, type: "question"} 
+  .voting-panel
+    =render partial: 'votes/voting', locals: { votable: @question }
+    
     
   = render 'questions/form'

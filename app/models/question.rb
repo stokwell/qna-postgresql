@@ -1,4 +1,5 @@
 class Question < ActiveRecord::Base
+  
   include Votable
 
   validates :body, :title, presence: true

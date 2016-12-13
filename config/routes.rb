@@ -2,11 +2,11 @@ Rails.application.routes.draw do
 
   devise_for :users
 
-  concern :votable do 
-    resources :votes, only: [:up, :down, :cancel] do
-      post :up, on: :collection
-      post :down, on: :collection
-      post :cancel, on: :collection
+  concern :votable do
+    member do 
+      post :upvote
+      post :downvote
+      post :cancel
     end
   end
   

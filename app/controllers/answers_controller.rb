@@ -1,11 +1,13 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :find_question, only: [:create, :update, :best]
-  before_action :find_answer, only: :destroy
+  before_action :find_answer, only: [:destroy, :upvote, :downvote]
   before_action :is_current_user_answer_owner, only: :destroy
   
+  include Voted
+
   def new
-    @answer = Answer.new
+     @answer = Answer.new
   end
 
   def create
@@ -32,7 +34,6 @@ class AnswersController < ApplicationController
     @answer.best if current_user.id == @answer.question.user_id
   end
 
- 
   private
 
   def find_answer
@@ -48,6 +49,7 @@ class AnswersController < ApplicationController
       redirect_to @answer.question, alert: 'Not allowed.'
     end
   end
+
 
   def answer_params
     params.require(:answer).permit(:body, :title, attachments_attributes: [:file, :id, :_delete])

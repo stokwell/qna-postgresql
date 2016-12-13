@@ -4,12 +4,15 @@
 
 $ ->
  
+  $('.vote-up').bind 'ajax:success', (e, data, status, xhr) ->
+    $('#' + 'vote-' + data.id + ' .upvotes').html(data.count_upvotes) 
 
-  $('.vote-up, .vote-down').bind 'ajax:success', (e, data, status, xhr) ->
-    $('#' + 'vote-' + data.votable_type.toLowerCase() + '-' + data.votable_id + ' .rating').html(data.count_votes)
+  $('.vote-down').bind 'ajax:success', (e, data, status, xhr) ->
+    $('#' + 'vote-' + data.id + ' .downvotes').html(data.count_downvotes)   
 
   $('.vote-up, .vote-down').bind 'ajax:error', (e, data, status, xhr) -> 
-    alert('error')
+    alert('You can\'t vote twice!')
 
   $('.vote-cancel').bind 'ajax:success', (e, data, status, xhr) ->
-    $('#' + 'vote-' + data.votable_type.toLowerCase() + '-' + data.votable_id + ' .rating').html(data.count_votes)
+    $('#' + 'vote-' + data.id + ' .downvotes').html(data.count_downvotes)
+    $('#' + 'vote-' + data.id + ' .upvotes').html(data.count_upvotes) 

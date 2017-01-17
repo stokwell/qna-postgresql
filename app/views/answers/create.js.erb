@@ -4,6 +4,6 @@
    <% end %>
 <% else %>
     $('.new_answer_form').hide()
-    $('.answers').prepend('<%= j render @answer %>');
+    $('.answers').append('<%= j render @answer, locals: {answer: @answer} %>');
     $('#clear').val(''); 
 <% end %>

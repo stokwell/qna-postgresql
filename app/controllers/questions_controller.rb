@@ -3,6 +3,9 @@ class QuestionsController < ApplicationController
   before_action :find_question, only: [:show, :edit, :update, :destroy]
   before_action :is_current_user_question_owner, only: [:destroy]
   
+  after_action :publish_question, only: [:create]
+
+
   include Voted
 
   def index
@@ -12,7 +15,9 @@ class QuestionsController < ApplicationController
 
   def show
     @answer = Answer.new
-    @answers = Answer.order("created_at desc")
+    @answers = Answer.all
+    @comment= @answer.comments.build
+    @comments = @answer.comments.all
     @answer.attachments.build
   end
 
@@ -26,10 +31,10 @@ class QuestionsController < ApplicationController
   end
   
   def create
-    @question = Question.new(question_params)
+    @seminar = Seminar.find_by(id: params[:seminar_id])
+    @question = @seminar.questions.build(question_params)
     @question.user = current_user
     if @question.save
-      redirect_to  question_path(@question)
       flash[:notice] = 'Your question successfully created.' 
     else
       render :new
@@ -58,11 +63,20 @@ class QuestionsController < ApplicationController
     end
   end
 
+  def publish_question
+    return if @question.errors.any?
+    ActionCable.server.broadcast(
+      'questions', 
+      ApplicationController.render(
+        partial: 'questions/question_in_list',
+        locals: { q: @question}
+  
+      )
+    )
+  end  
+
   def question_params
     params.require(:question).permit(:title, :body, attachments_attributes: [:file, :id, :_delete])
   end
-
-
-
 
 end

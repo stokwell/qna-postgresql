@@ -1,8 +1,10 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :find_question, only: [:create, :update, :best]
-  before_action :find_answer, only: [:destroy, :upvote, :downvote]
+  before_action :find_answer, only: [:destroy]
   before_action :is_current_user_answer_owner, only: :destroy
+
+  after_action :publish_answer, only: [:create]
   
   include Voted
 
@@ -49,6 +51,15 @@ class AnswersController < ApplicationController
       redirect_to @answer.question, alert: 'Not allowed.'
     end
   end
+
+  def publish_answer
+    @question = Question.find_by(id: params[:question_id])
+    return if @answer.errors.any?
+    ActionCable.server.broadcast(
+      'answers',
+       render_to_string(template: 'answers/answer.json.jbuilder')
+    )
+  end 
 
 
   def answer_params

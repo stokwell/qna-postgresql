@@ -1,11 +1,17 @@
 =render @question
  
-
-h3 =link_to '+ Answer', ' ', class: "new_answer_link", remote: true  
-.new_answer_form
-  .answer-error
-  = render 'answers/form'
+/h3 =link_to '+ Answer', ' ', class: "new_answer_link", remote: true  
+/.new_answer_form
+/  .answer-error
+/ = render 'answers/form'
 
 .answers
   = render @question.answers
 
+.new-answer-box        
+  //.button-box
+  //  .add-btn
+  //    p Neu Answer
+      
+
+  = render 'answers/form'  

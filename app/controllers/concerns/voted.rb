@@ -6,7 +6,7 @@ module Voted
   end
 
   def upvote
-    if vote_empty
+    if vote_empty?
       @votable.upvote(current_user)
       render json: { id: @votable.id, status: 'success', count_upvotes: @votable.count_upvotes }, status: :ok
     end

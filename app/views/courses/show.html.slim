@@ -1,0 +1,56 @@
+h1 =@course.theme
+h4 =@course.instructor
+
+//p class="centered" Termine und Lectüren:
+
+-@seminars.each do |seminar|
+  =link_to(seminar)
+    .seminar-box
+      .seminar-info
+	    p Sitzung am
+	    p =seminar.date
+
+	    h2 =seminar.theme
+	    p =seminar.lecture
+	  .seminar-questions
+	    p Diskussionsfragen:
+	    span =seminar.count_questions 
+	   
+
+  .seminar.hidden
+      table
+        tboby
+          tr class="tr-edit" = form_for seminar, method: "patch", remote: true do |f|
+            td class="td-left" = f.text_field :theme
+            td class="td-center" = f.text_field :lecture
+            td class="td-right" = f.text_field :date         
+            td class="td-destroy" = f.submit 'Save'
+
+  
+                            
+
+
+//p class="centered" Neuen Termin
+//.new-seminar-form 
+  .seminar
+    table
+        tboby
+          = form_for [@course, @seminar] do |f|
+           td class="td-left" 
+		      =f.label :theme
+		      =f.text_field :theme
+		  
+		   td class="td-center" 
+		      =f.label :lecture
+		      =f.text_field :lecture
+
+		   td class="td-right"  
+		      =f.label :date
+		      =f.text_field :date   
+		    
+		   td class="td-destroy" 
+		      =f.submit 'Create'
+
+.enroll-box
+  
+

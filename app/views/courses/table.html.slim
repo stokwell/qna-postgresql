@@ -1,0 +1,12 @@
+-@seminars.each do |seminar|
+  =link_to(seminar)
+    .seminar
+      table
+        tboby
+          tr
+            td class="td-left" =seminar.theme
+            td class="td-center" =seminar.lecture 
+            td class="td-right" =seminar.date
+            td class="td-destroy" 
+              - if user_signed_in? 
+               = link_to 'Delete', seminar_path(seminar), method: :delete

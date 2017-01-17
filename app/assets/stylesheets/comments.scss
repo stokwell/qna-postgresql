@@ -1,0 +1,89 @@
+// Place all the styles related to the Comments controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+.comment-panel {
+    display: inline-block;
+    padding-left: 10px;
+	p {
+    	display: inline-block;
+	}
+    .show-comments-btn {
+        display: inline-block;
+        floa:left
+    }
+} 
+
+
+.comments-box {
+	display: none;
+
+}
+
+.comment {
+	margin: 0 40px 20px 40px;
+	padding: 20px;
+	background:white;
+	position:relative;
+	overflow: auto;
+
+	p {
+		margin:0;
+	}
+
+	label {
+     	display:none; 
+	}
+	textarea {
+       border: 1px solid #DDD;      
+       width:100%;
+       height:43px;
+       color: #666;
+       font-family: Arial,Helvetica,sans-serif;
+       font-size: 16px;
+       line-height: 1.4;
+       resize:none; 
+       overflow:hidden;
+       padding:10px;
+    }
+    .btns-box {
+        display:inline-block;
+        float:right;
+        input {
+          margin: 15px 0 0;
+        }
+
+    }
+}
+
+.edit_comment {
+	display:none;
+}
+
+.btn-cancel {
+	display:inline-block;
+	background-color: #36424a;
+	color:white;
+	width:80px;
+	text-align: center;
+	padding:5px 0;
+}
+
+.answer-interaction-panel {
+	vertical-align: middle;
+	background:white;
+	//border-top: 1px solid #e7e8ec;
+	margin-bottom:20px;
+	overflow:auto;
+
+
+}
+
+.vote-comment-panel {
+	float:right;
+	
+}
+
+.date {
+	display: inline-block;
+	
+}

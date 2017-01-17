@@ -1,10 +1,12 @@
-= form_for @question, remote: true do |f|
-  div=f.label :title
-  div=f.text_field :title
-  div=f.label :body
-  div=f.text_area :body
-  p Add Files
-  div=f.fields_for :attachments do |a|
-       =a.label :file
-       =a.file_field :file
-  div=f.submit 'Save'
+.question 
+  = form_for @question, remote: true do |f|
+   .question-field
+     =f.label(:title, 'Frage', class: 'label')
+     =f.text_area :title
+   /.question-field
+    / =f.label(:body, 'Kommentar (optional)', class: 'label')
+     /=f.text_area :body
+   =f.fields_for :attachments do |attach|
+     = render partial: 'attachments/a_fields', locals: {f: attach}
+   = link_to_add_association 'Add file', f, :attachments, partial: 'attachments/a_fields'
+   =f.submit 'Save', class: 'form-submit'

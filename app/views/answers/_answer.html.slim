@@ -1,9 +1,9 @@
 .answer id = "answer-#{answer.id}" class=('best-answer' if answer.best_answer)
-  p= answer.body
+  = markdown(answer.body)
   - if answer.best_answer
     h4 This answer is best
   
-  p Files:
+
   ul 
     - answer.attachments.each do |a|
       li id="attachment-id-#{a.id}"
@@ -13,21 +13,40 @@
 
   .panel
     - if user_signed_in? && answer.user_id == current_user.id
-       = link_to 'Delete', answer, method: :delete, data: { confirm: 'Delete answer?' }, remote: true 
        = link_to 'Edit', ' ', class: 'edit-answer-link', data: { answer_id: answer.id }
+       = link_to 'Delete', answer, method: :delete, data: { confirm: 'Delete answer?' }, remote: true 
+       
 
-    - if user_signed_in? && @question.user_id == current_user.id && !answer.best_answer
-       = link_to "Best Answer", best_answer_path(answer), method: :patch, remote: true
+    //- if user_signed_in? && @question.user_id == current_user.id && !answer.best_answer
+    //   = link_to "Best Answer", best_answer_path(answer), method: :patch, remote: true
 
-  .voting-panel
-    =render partial: 'votes/voting', locals: { votable: answer }
-
-
+  
   p
    = form_for answer, method: "patch", remote: true, html: { id: "edit-answer-#{answer.id}"} do |f|
-     div= f.label :body, "Edit your answer"
+     div= f.label :body
      div= f.text_area :body
      div= f.submit 'Save'
 
+
+  .answer-interaction-panel
+    .date
+      p= answer.created_at.strftime("%d %B, %Y")
+
+    .vote-comment-panel 
+      .voting-panel
+        =render partial: 'votes/voting', locals: { votable: answer }
   
+      .comment-panel
+        div id ="#{answer.id}" class="show-comments-btn"
+         p Kommentieren (#{answer.count_comments})   
+   
+ 
+.comments-box id ="comments-box-#{answer.id}"
+  =render answer.comments
+.comment 
+  = form_for [answer, @answer.comments.build], remote: true do |f|
+    = f.label :body, "Body"
+    = f.text_area :body, placeholder: "Schreiben Sie hier Ihren Kommentar", spellcheck: "false"
+    .btns-box
+      = f.submit 'Create'
 

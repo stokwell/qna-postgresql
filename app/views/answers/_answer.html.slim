@@ -16,9 +16,13 @@
        = link_to 'Delete', answer, method: :delete, data: { confirm: 'Delete answer?' }, remote: true 
        = link_to 'Edit', ' ', class: 'edit-answer-link', data: { answer_id: answer.id }
 
-    -if user_signed_in? && @question.user_id == current_user.id && !answer.best_answer
+    - if user_signed_in? && @question.user_id == current_user.id && !answer.best_answer
        = link_to "Best Answer", best_answer_path(answer), method: :patch, remote: true
-  
+
+  .voting-panel
+    =render partial: 'votes/voting', locals: { votable: answer }
+
+
   p
    = form_for answer, method: "patch", remote: true, html: { id: "edit-answer-#{answer.id}"} do |f|
      div= f.label :body, "Edit your answer"

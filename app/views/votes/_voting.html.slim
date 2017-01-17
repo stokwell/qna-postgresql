@@ -1,0 +1,14 @@
+.votes id = "vote-#{votable.id}"
+  p Likes:
+  span.upvotes = votable.count_upvotes
+  br
+  p Dislikes:
+  span.downvotes = votable.count_downvotes
+  br
+
+- if user_signed_in? && votable.user_id != current_user.id
+  p= link_to 'up', polymorphic_path([:upvote, votable]), method: :post, remote: true, class: "vote-up", data: { type: :json }
+
+  p= link_to 'down', polymorphic_path([:downvote, votable]), method: :post, remote: true, class: "vote-down", data: { type: :json }
+
+  p= link_to 'cancel', polymorphic_path([:cancel, votable]), method: :post, remote: true, class: "vote-cancel", data: { type: :json }

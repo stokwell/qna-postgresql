@@ -40,6 +40,8 @@ gem 'puma', '~> 3.0'
 gem 'gon'
 gem 'skim'
 
+gem 'responders'
+
 gem 'sprockets'
 
 gem 'redcarpet'  

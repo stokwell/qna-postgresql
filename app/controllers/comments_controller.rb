@@ -1,37 +1,27 @@
 class CommentsController < ApplicationController
-
+  before_action :authenticate_user!
+  before_action :load_parent
   after_action :publish_comment, only: [:create]
+  before_action :load_comment, only:[:edit, :update, :destroy]
+  respond_to :js
 
   def new
-    @answer = Answer.find(params[:answer_id])
-    @comment = @answer.comments.build
   end
 
   def create
-    @answer = Answer.find_by(id: params[:answer_id])
-    @comment = @answer.comments.build(comment_params)
-    @comment.user = current_user
-    @comment.save
+    respond_with(@comment = @parent.comments.create(comment_params.merge(user_id: current_user.id)))
   end
 
   def edit
-    @answer = Answer.find_by(id: params[:answer_id])
-    @comment = Comment.find(params[:id])
     @comment.update(comment_params)
   end
 
- 
-
   def update
-    @answer = Answer.find_by(id: params[:answer_id])
-    @comment = Comment.find(params[:id])
     @comment.update(comment_params)
   end
 
   def destroy
-    @answer = Answer.find_by(id: params[:answer_id])
-    @comment = Comment.find(params[:id])
-    @comment.destroy
+    respond_with @comment.destroy
   end
 
 
@@ -40,6 +30,15 @@ class CommentsController < ApplicationController
 
   def comment_params
     params.require(:comment).permit(:body)
+  end
+
+  def load_parent
+    @parent = Question.find(params[:question_id]) if params[:question_id]
+    @parent ||= Answer.find(params[:answer_id]) 
+  end
+
+  def load_comment
+    @comment = Comment.find(params[:id])
   end
 
   def publish_comment

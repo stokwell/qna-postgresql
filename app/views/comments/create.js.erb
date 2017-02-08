@@ -1,1 +1,2 @@
-$('textarea').val('')
+$('.comments-question').html('<%= j render "list", parent: @parent %>');
+$('textarea').val('');

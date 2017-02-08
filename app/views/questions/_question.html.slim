@@ -15,6 +15,9 @@ div id="question-id-#{question.id}" class="question"
       = link_to 'Delete', question_path(@question), method: :delete
       = link_to 'Edit', ' ', class: "edit-question-link"
 
+.comments-question
+  =render 'comments/list', parent: @question
+
   /.voting-panel
     =render partial: 'votes/voting', locals: { votable: @question }
     

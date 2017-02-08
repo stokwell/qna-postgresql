@@ -4,13 +4,14 @@ class QuestionsController < ApplicationController
   before_action :is_current_user_question_owner, only: [:destroy]
   
   after_action :publish_question, only: [:create]
+  
+  respond_to :html
 
 
   include Voted
 
   def index
-    @questions = Question.all.order("created_at asc")
-    @question = Question.new
+    respond_with(@questions = Question.all.order("created_at asc"))
   end
 
   def show
@@ -69,8 +70,7 @@ class QuestionsController < ApplicationController
       'questions', 
       ApplicationController.render(
         partial: 'questions/question_in_list',
-        locals: { q: @question}
-  
+        locals: { q: @question }
       )
     )
   end  

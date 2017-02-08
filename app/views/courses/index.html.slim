@@ -1,0 +1,14 @@
+// =link_to 'Create new course', new_course_path(@course)
+//h1 list of all courses
+
+-@courses.each do |course|
+  = link_to(course)
+    .course 
+      h4 =course.theme
+      p =course.instructor
+
+-if user_signed_in? 
+  =render 'new_course'
+-else
+  =render 'sign_in_action'       
+     

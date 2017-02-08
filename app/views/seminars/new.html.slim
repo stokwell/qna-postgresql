@@ -1,0 +1,17 @@
+h1 =@course.theme
+h4 =@course.instructor
+
+.new-course-form
+  = form_for [@course, @seminar] do |f|
+    .form-field
+      =f.label :theme
+      =f.text_field :theme
+    .form-field  
+      =f.label :date
+      =f.text_field :date
+    .form-field  
+      =f.label :lecture
+      =f.text_area :lecture
+    
+    .form-field
+      =f.submit 'Next'

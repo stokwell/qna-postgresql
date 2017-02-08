@@ -11,7 +11,7 @@ $ ->
     $('#' + 'vote-' + data.id + ' .downvotes').html(data.count_downvotes)   
 
   $('.vote-up, .vote-down').bind 'ajax:error', (e, data, status, xhr) -> 
-    alert('You can\'t vote twice!')
+    alert('You can\'t vote for you answer!')
 
   $('.vote-cancel').bind 'ajax:success', (e, data, status, xhr) ->
     $('#' + 'vote-' + data.id + ' .downvotes').html(data.count_downvotes)

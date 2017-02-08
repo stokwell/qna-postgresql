@@ -1,0 +1,74 @@
+// Place all the styles related to the Seminars controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.seminar {
+	background:white;
+	padding:10px;
+	input {
+	   width:100%
+	}
+}
+
+.seminar-box {
+	width:500px;
+	background: white;
+	margin: auto;
+	padding:5px;
+
+    .seminar-info {
+       border-bottom: 1px solid #DDD;
+       text-align:center;
+       padding-bottom:30px;
+       p {
+         display: inline-block;
+         margin: 0 3px;
+       }
+    }
+
+    .seminar-questions {
+       text-align:center;
+       padding: 5px;
+
+       p {
+         display: inline-block;
+         margin: 0 5px;
+       }
+    }
+}
+
+
+.td-left {
+	width:150px;
+}
+
+.td-center {
+	width:450px;
+	
+}
+
+.td-right {
+	width:140px;
+	
+}
+
+td-destroy {
+	width:100px;
+}
+
+.tr-edit {
+
+}
+.hidden {
+	opacity:0;
+	visibility:hidden;
+}
+
+.new-seminar-form {
+  margin-bottom:150px;
+}
+
+.enroll-box {
+	height: 200px;
+	background:#36424A;
+}

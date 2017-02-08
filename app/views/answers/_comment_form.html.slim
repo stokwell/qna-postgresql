@@ -1,0 +1,8 @@
+.comment 
+  = form_for [answer, @comment], remote: true do |f|
+    = f.label :body, "Body"
+    = f.text_area :body, placeholder: "Schreiben Sie hier Ihren Kommentar"
+    .btns-box
+      = f.submit 'Create'
+      
+      

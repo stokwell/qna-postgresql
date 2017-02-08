@@ -1,0 +1,14 @@
+.new-course-form
+  = form_for @course do |f|
+    .form-field
+      =f.label :theme
+      =f.text_field :theme
+    .form-field  
+      =f.label :instructor
+      =f.text_field :instructor
+    .form-field  
+      =f.label :description
+      =f.text_area :description
+    
+    .form-field
+      =f.submit 'Next'

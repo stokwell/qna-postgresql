@@ -1,10 +1,11 @@
-class Answer < ActiveRecord::Base
+class Answer < ApplicationRecord
   include Votable
 
   validates :body, presence: true
   belongs_to :question
   belongs_to :user
   has_many :attachments, as: :attachable, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   accepts_nested_attributes_for :attachments, :reject_if => :all_blank, :allow_destroy => true
 
@@ -15,6 +16,10 @@ class Answer < ActiveRecord::Base
       self.question.answers.update_all(best_answer: false)
       self.update!(best_answer: true)
     end
+  end
+
+  def count_comments
+    self.comments.count
   end
 
 end

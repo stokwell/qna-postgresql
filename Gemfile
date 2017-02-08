@@ -1,8 +1,7 @@
 source 'https://rubygems.org'
 
-
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.2.6'
+gem 'rails', '~> 5.0.0', '>= 5.0.0.1'
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 0.15'
 # Use SCSS for stylesheets
@@ -37,6 +36,14 @@ gem 'devise'
 gem 'carrierwave'
 gem 'remotipart'
 gem 'cocoon'
+gem 'puma', '~> 3.0'
+gem 'gon'
+gem 'skim'
+
+gem 'sprockets'
+
+gem 'redcarpet'  
+
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

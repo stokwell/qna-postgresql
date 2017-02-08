@@ -1,0 +1,23 @@
+h3 class="centered" =@seminar.theme
+
+.questions-list
+  -@questions.each do |question|
+    = link_to(question)
+      .question
+        p=question.title
+
+- if user_signed_in?  
+  .question 
+    = form_for [@seminar, @seminar.questions.build], remote: true do |f|
+     .question-field
+       =f.label(:title, 'Frage', class: 'label')
+       =f.text_area :title
+     /.question-field
+     / =f.label(:body, 'Kommentar (optional)', class: 'label')
+     /=f.text_area :body
+     =f.fields_for :attachments do |attach|
+      = render partial: 'attachments/a_fields', locals: {f: attach}
+     = link_to_add_association 'Add file', f, :attachments, partial: 'attachments/a_fields'
+     =f.submit 'Save', class: 'form-submit'   
+-else
+  =render "courses/sign_in_action"     

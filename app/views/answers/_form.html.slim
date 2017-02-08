@@ -1,9 +1,9 @@
-.answer 
+.new-answer-form 
  = form_for [@question, @answer], remote: true do |f|
-   p= f.label :body, "Body"
-   p= f.text_area :body, id: 'clear'
-   p= f.fields_for :attachments do |attach|
-     = render partial: 'attachments/a_fields', locals: {f: attach}
-   p= link_to_add_association 'Add file', f, :attachments, partial: 'attachments/a_fields'
-
-   div= f.submit 'Add an answer', class: "answer_submit"    
+   = f.label :body, "Body"
+   = f.text_area :body, id: 'clear', placeholder: 'Schreiben Sie hier Ihre Antwort'
+   //p= f.fields_for :attachments do |attach|
+   //  = render partial: 'attachments/a_fields', locals: {f: attach}
+   .new-answer-form-panel  
+     = link_to_add_association 'Add file', f, :attachments, partial: 'attachments/a_fields'
+     = f.submit 'Create', class: "answer_submit"    

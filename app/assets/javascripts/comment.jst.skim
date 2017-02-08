@@ -1,0 +1,7 @@
+.comment id="comment-#{@comment.id}"
+  p =@comment.body
+
+  .panel
+    - if gon.user_id == @comment.user_id
+      a data-comment-id="#{@comment.id}" href="#"  Edit
+      a data-comment-id="#{@comment.id}"  data-remote="true" data-method="delete" data-confirm="Are you sure?" href="#{@comment.destroy_url}" Delete 

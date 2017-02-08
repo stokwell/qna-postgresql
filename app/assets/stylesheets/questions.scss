@@ -1,22 +1,35 @@
-// Place all the styles related to the questions controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+// variables
+
+$bl: #05a5d1;
+
+
+
+// Question Style
 
 .question {
-	width: 800px;
-	margin: 40px 0 10px;
-	background:#EEE;
-	border-radius: 20px; 
-	padding:20px;
+	margin: 40px 0 20px;
+	//background-color: rgba(5, 165, 209, 0.05);
+	//border-left: 4px solid #05A5D1;
+	background:white;
+	padding:40px;
 	position:relative;
+	overflow:auto;
+	border-radius: 3px;
 }
 
 .question:first-child {
-	margin-top:10px;
+
 }
 
 .new_question {
- 
+	label {
+	   width:100px;
+	}
+    input {
+       border-radius: 3px;
+       word-wrap: break-word;
+       
+    }
 }
 
 .ask_link {
@@ -28,3 +41,78 @@
 .edit_question {
 	display:none;
 }
+
+// New Question Form
+
+.button-box {
+	width: 200px;
+  margin:0 auto;
+  margin-top:60px;
+  text-align:center
+}
+
+
+
+.new-question-box {
+	min-height: 150px;
+	margin-top: 40px;
+	
+    
+    .add-btn {
+    background: $bl;
+    }
+}
+
+
+
+.add-btn {
+	padding: 10px 15px;
+	margin:0;
+  border-radius: 3px;
+	display:inline-block;
+	color:white;
+	cursor:pointer;
+
+}
+
+.add-btn p {
+    margin:0;
+}
+
+.new-question-form {
+    
+    clear:both;
+
+}
+
+ .question-field {
+
+    .label {
+       width: 100px;
+       display:inline-block;
+       margin: 10px 0;
+       display: none;
+    }
+
+    textarea {
+       border: 1px solid #DDD;
+       width:100%;
+       height:150px;
+       color: #666;
+       font-family: Arial,Helvetica,sans-serif;
+       font-size: 16px;
+       line-height: 1.4;
+       padding: 6px;
+    }
+ }
+
+ .form-submit {
+     border:none;
+     color:white;
+     background: #05a5d1;
+     font-size:16px;
+     padding: 5px 15px;
+     float: right;
+     margin-right: 10px;
+
+ }

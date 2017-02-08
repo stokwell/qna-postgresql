@@ -1,0 +1,11 @@
+.comment id = "comment-#{comment.id}"
+  p= comment.body
+  - if user_signed_in? && comment.user_id == current_user.id || user_signed_in? && @answer.user_id == current_user.id
+    .panel 
+      = link_to 'Edit', ' ' , class: 'edit-comment-form-btn'
+      = link_to 'Delete', comment, method: :delete, data: { confirm: 'Delete comment?' }, remote: true
+  
+    /= form_for @comment, remote: true do |f|
+     / p= f.label :body, "Body"
+      /p= f.text_area :body
+      /p= f.submit 'Save'

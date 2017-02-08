@@ -28,6 +28,7 @@ ActiveRecord::Migration.maintain_test_schema!
 
 RSpec.configure do |config|
   Capybara.javascript_driver = :webkit
+  Capybara.server = :puma 
   
   config.include FactoryGirl::Syntax::Methods
   config.include Devise::TestHelpers, type: :controller

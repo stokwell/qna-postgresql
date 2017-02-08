@@ -1,0 +1,8 @@
+.answer id = "answer-#{@answer.id}" 
+  = @answer.body
+
+  .panel
+    - if gon.user_id == @answer.user_id
+      a data-answer-id="#{@answer.id}" href="#"  Edit
+  
+

@@ -9,7 +9,11 @@ Rails.application.routes.draw do
 
   root to: 'courses#index'
 
-  devise_for :users
+  devise_for :users, controllers: { omniauth_callbacks: 'omniauth_callbacks' }
+
+  devise_scope :user do
+    post '/users/auth/proceed_with_email', to: 'omniauth_callbacks#with_email'
+  end
 
   concern :votable do
     member do 

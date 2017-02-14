@@ -39,6 +39,10 @@ gem 'cocoon'
 gem 'puma', '~> 3.0'
 gem 'gon'
 gem 'skim'
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem 'omniauth-twitter'
+gem 'pry-byebug'
 
 gem 'responders'
 

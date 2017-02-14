@@ -19,6 +19,7 @@
 
   <div class="actions">
     <button><%= f.submit "Login" %></button>
+    <%= render "devise/shared/links" %>
   </div>
   <% end %>
 
@@ -26,6 +27,7 @@
    <p class="footer-text">Not a member?
     <span class="sign-up"><%= link_to 'Sign up now', new_registration_path(resource_name) %> </span>
    </p>
+
 </div>
 
 

@@ -1,32 +1,34 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!
   before_action :find_question, only: [:create, :update, :best]
-  before_action :find_answer, only: [:destroy]
+  before_action :find_answer, only: [:destroy, :update]
   before_action :is_current_user_answer_owner, only: :destroy
 
   after_action :publish_answer, only: [:create]
+
+  respond_to :js, :json
   
   include Voted
 
   def new
-     @answer = Answer.new
   end
 
   def create
-    @answer = @question.answers.new(answer_params)
-    @answer.user = current_user
-    @answer.save
+    @answer = current_user.answers.create(answer_params.merge(question_id: @question.id))
+    respond_with(@answer)
+  end
+
+  def edit
+    respond_with(@answer)
   end
 
   def update
-    @answer = Answer.find(params[:id])
     @answer.update(answer_params)
-    @question = @answer.question
+    respond_with(@answer)
   end
 
   def destroy
-    @answer.destroy
-    flash[:notice] = 'Answer is deleted' if @answer.destroy
+    respond_with(@answer.destroy)
   end
 
    

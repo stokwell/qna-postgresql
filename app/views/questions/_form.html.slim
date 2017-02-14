@@ -1,5 +1,5 @@
 .question 
-  = form_for @question, remote: true do |f|
+  = form_for :question, remote: true do |f|
    .question-field
      =f.label(:title, 'Frage', class: 'label')
      =f.text_area :title

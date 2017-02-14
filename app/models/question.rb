@@ -8,6 +8,8 @@ class Question < ApplicationRecord
   belongs_to :user
   belongs_to :seminar
 
+  has_many :comments, as: :commentable, dependent: :destroy
+
   accepts_nested_attributes_for :attachments, :reject_if => :all_blank, :allow_destroy => true
   
   
